@@ -21,10 +21,24 @@ const Home = () => {
             "@context": "https://schema.org",
             "@type": "Product",
             "name": "Final Year Project Bundle",
+            "description": "Complete final year project with code, report, and viva support for BCA, MCA, B.Tech students",
+            "brand": {
+              "@type": "Brand",
+              "name": "Love Assignment"
+            },
+            "offers": {
+              "@type": "AggregateOffer",
+              "priceCurrency": "INR",
+              "lowPrice": "3999",
+              "highPrice": "7999",
+              "offerCount": "3"
+            },
             "aggregateRating": {
               "@type": "AggregateRating",
               "ratingValue": "4.9",
-              "reviewCount": "2000"
+              "reviewCount": "2000",
+              "bestRating": "5",
+              "worstRating": "1"
             }
           })}
         </script>

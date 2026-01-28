@@ -6,11 +6,14 @@ const SEO = ({
   description, 
   canonical = 'https://loveassignment.shop',
   path = '', 
+  image,
   children 
 }) => {
   const fullUrl = `${canonical}${path}`;
   const siteName = 'Love Assignment';
   const defaultDescription = 'Love Assignment provides complete final year projects with code, report and viva support. Trusted by 2000+ students. First draft delivered in under 16 hours.';
+  const defaultImage = 'https://loveassignment.shop/og-image.jpg';
+  const ogImage = image || defaultImage;
 
   // Structured Data: Organization
   const organizationSchema = {
@@ -19,11 +22,17 @@ const SEO = ({
     "name": "Love Assignment",
     "url": "https://loveassignment.shop",
     "logo": "https://loveassignment.shop/logo.png",
+    "description": "Final year project assistance for BCA, MCA, and B.Tech students",
+    "email": "support@loveassignment.in",
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+91-9256487182",
-      "contactType": "customer support"
-    }
+      "contactType": "customer support",
+      "availableLanguage": ["en", "hi"]
+    },
+    "sameAs": [
+      "https://wa.me/919256487182"
+    ]
   };
 
   // Structured Data: Website Search
@@ -70,6 +79,9 @@ const SEO = ({
       <meta property="og:url" content={fullUrl} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description || defaultDescription} />
+      <meta property="og:image" content={ogImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
       <meta property="og:site_name" content={siteName} />
 
       {/* Twitter */}
@@ -77,6 +89,7 @@ const SEO = ({
       <meta property="twitter:url" content={fullUrl} />
       <meta property="twitter:title" content={title} />
       <meta property="twitter:description" content={description || defaultDescription} />
+      <meta property="twitter:image" content={ogImage} />
 
       {/* Structured Data: Organization & Website (Global) */}
       <script type="application/ld+json">

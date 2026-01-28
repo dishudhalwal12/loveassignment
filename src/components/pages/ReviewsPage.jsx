@@ -11,6 +11,14 @@ const ReviewsPage = () => {
         path="/reviews"
       />
       <div className="pt-8">
+        <div className="section-container mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 text-center mb-4">
+            Student Success Stories
+          </h1>
+          <p className="text-lg text-gray-600 text-center max-w-2xl mx-auto">
+            See what our 2000+ happy students have to say
+          </p>
+        </div>
         <Testimonials />
       </div>
     </>

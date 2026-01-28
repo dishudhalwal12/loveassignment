@@ -9,7 +9,8 @@ const GenericLanding = ({
   pageTitle, 
   metaDescription, 
   heroOverrideTitle,
-  path
+  path,
+  image
 }) => {
   return (
     <>
@@ -17,6 +18,7 @@ const GenericLanding = ({
         title={pageTitle}
         description={metaDescription}
         path={path}
+        image={image}
       />
 
       <HeroConfigurator overrideTitle={heroOverrideTitle} />

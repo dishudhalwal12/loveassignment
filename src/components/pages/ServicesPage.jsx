@@ -11,6 +11,14 @@ const ServicesPage = () => {
         path="/services"
       />
       <div className="pt-8">
+        <div className="section-container mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 text-center mb-4">
+            Our Services
+          </h1>
+          <p className="text-lg text-gray-600 text-center max-w-2xl mx-auto">
+            Complete final year project support from code to viva preparation
+          </p>
+        </div>
         <Services />
       </div>
     </>
