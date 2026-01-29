@@ -218,6 +218,10 @@ const Testimonials = () => {
                     <img 
                       src={profileImages[i % profileImages.length]} 
                       alt={t.name}
+                      width="44"
+                      height="44"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover object-center"
                     />
                   </div>

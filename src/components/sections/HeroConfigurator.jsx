@@ -38,6 +38,23 @@ const HeroConfigurator = ({ overrideTitle }) => {
   
   // Random PFPs for social proof - changes on each page load
   const randomPfps = useMemo(() => getRandomPfps(5), []);
+  
+  // Handle sequential animation: popIn → pfpFloat
+  useEffect(() => {
+    const handleAnimationEnd = (e) => {
+      if (e.animationName === 'popIn') {
+        e.target.classList.add('animation-done');
+      }
+    };
+    
+    const pfpElements = document.querySelectorAll('.animate-hero-pfp');
+    pfpElements.forEach(el => el.addEventListener('animationend', handleAnimationEnd));
+    
+    return () => {
+      pfpElements.forEach(el => el.removeEventListener('animationend', handleAnimationEnd));
+    };
+  }, []);
+  
   // Payment Form State
   const [formData, setFormData] = useState({
     name: '',
@@ -197,11 +214,14 @@ const HeroConfigurator = ({ overrideTitle }) => {
                   <img 
                     key={i}
                     src={src} 
-                    alt="Student" 
-                    className="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm"
+                    alt="Student"
+                    width="40"
+                    height="40"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-10 h-10 rounded-full border-2 border-white object-cover object-center shadow-sm animate-hero-pfp"
                     style={{ 
-                      animation: `popIn 0.4s ease forwards, pfpFloat ${3 + i * 0.5}s ease-in-out infinite`,
-                      animationDelay: `${i * 0.05}s, ${i * 0.2}s`
+                      animationDelay: `${i * 0.1}s`
                     }}
                   />
                 ))}
