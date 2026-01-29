@@ -7,6 +7,24 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://loveassignment.shop/services</loc>
+    <lastmod>2026-01-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://loveassignment.shop/reviews</loc>
+    <lastmod>2026-01-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://loveassignment.shop/faq</loc>
+    <lastmod>2026-01-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://loveassignment.shop/bca-projects</loc>
     <lastmod>2026-01-29</lastmod>
     <changefreq>weekly</changefreq>
@@ -37,21 +55,27 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://loveassignment.shop/services</loc>
+    <loc>https://loveassignment.shop/final-year-project-bca</loc>
     <lastmod>2026-01-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://loveassignment.shop/reviews</loc>
+    <loc>https://loveassignment.shop/final-year-project-mca</loc>
     <lastmod>2026-01-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://loveassignment.shop/faq</loc>
+    <loc>https://loveassignment.shop/final-year-project-btech</loc>
     <lastmod>2026-01-29</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://loveassignment.shop/project-viva-preparation</loc>
+    <lastmod>2026-01-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

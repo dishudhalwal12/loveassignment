@@ -33,6 +33,10 @@ const Footer = () => {
               <li><Link to="/btech-projects" className="hover:text-brand-700">B.Tech Projects</Link></li>
               <li><Link to="/project-reports" className="hover:text-brand-700">Report Writing</Link></li>
               <li><Link to="/viva-preparation" className="hover:text-brand-700">Viva Preparation</Link></li>
+              <li><a href="/final-year-project-bca" className="hover:text-brand-700">Final Year BCA</a></li>
+              <li><a href="/final-year-project-mca" className="hover:text-brand-700">Final Year MCA</a></li>
+              <li><a href="/final-year-project-btech" className="hover:text-brand-700">Final Year B.Tech</a></li>
+              <li><a href="/project-viva-preparation" className="hover:text-brand-700">Viva Prep Guide</a></li>
             </ul>
           </div>
 
@@ -40,9 +44,9 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-gray-900 mb-4">Company</h3>
             <ul className="space-y-3 text-sm text-gray-600">
-              <li><Link to="/services" className="hover:text-brand-700">Services</Link></li>
-              <li><Link to="/reviews" className="hover:text-brand-700">Reviews</Link></li>
-              <li><Link to="/faq" className="hover:text-brand-700">FAQ</Link></li>
+              <li><a href="/services" className="hover:text-brand-700">Services</a></li>
+              <li><a href="/reviews" className="hover:text-brand-700">Reviews</a></li>
+              <li><a href="/faq" className="hover:text-brand-700">FAQ</a></li>
               <li><a href="#contact" className="hover:text-brand-700">Contact</a></li>
             </ul>
           </div>

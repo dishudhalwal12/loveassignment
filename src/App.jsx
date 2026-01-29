@@ -12,6 +12,12 @@ import ServicesPage from './components/pages/ServicesPage';
 import TestimonialsPage from './components/pages/ReviewsPage';
 import FAQPage from './components/pages/FAQPage';
 
+// Programmatic SEO Landing Pages
+import FinalYearProjectBCA from './components/pages/FinalYearProjectBCA';
+import FinalYearProjectMCA from './components/pages/FinalYearProjectMCA';
+import FinalYearProjectBTech from './components/pages/FinalYearProjectBTech';
+import ProjectVivaPreparation from './components/pages/ProjectVivaPreparation';
+
 function App() {
   return (
     <HelmetProvider>
@@ -71,6 +77,12 @@ function App() {
                 <Route path="/services" element={<ServicesPage />} />
                 <Route path="/reviews" element={<TestimonialsPage />} />
                 <Route path="/faq" element={<FAQPage />} />
+                
+                {/* Programmatic SEO Landing Pages */}
+                <Route path="/final-year-project-bca" element={<FinalYearProjectBCA />} />
+                <Route path="/final-year-project-mca" element={<FinalYearProjectMCA />} />
+                <Route path="/final-year-project-btech" element={<FinalYearProjectBTech />} />
+                <Route path="/project-viva-preparation" element={<ProjectVivaPreparation />} />
                 
                 {/* Fallback */}
                 <Route path="*" element={<Home />} />

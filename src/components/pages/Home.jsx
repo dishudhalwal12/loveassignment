@@ -6,6 +6,7 @@ import GlobalReach from '../sections/GlobalReach';
 import Services from '../sections/Services';
 import Testimonials from '../sections/Testimonials';
 import FAQ from '../sections/FAQ';
+import WhatIsLoveAssignment from '../sections/WhatIsLoveAssignment';
 import SEO from '../layout/SEO';
 
 const Home = () => {
@@ -45,6 +46,7 @@ const Home = () => {
       </SEO>
 
       <HeroConfigurator />
+      <WhatIsLoveAssignment />
       <TrustStats />
       <ProcessTimeline />
       <GlobalReach />
