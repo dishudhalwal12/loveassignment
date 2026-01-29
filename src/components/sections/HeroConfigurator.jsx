@@ -1,10 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Check, Star, Users, ShieldCheck, Zap, Book, ChevronRight } from 'lucide-react';
 import CartDrawer from '../ui/CartDrawer';
 import { usePricing } from '../../context/PricingContext';
 import useRazorpay from '../../hooks/useRazorpay';
 import { saveOrder } from '../../lib/firebase';
 
+const pfpImages = [
+  '/pfp/0eef600c4aee2c986504050a1d988c7f.jpg',
+  '/pfp/26ac83b59b9483944c99dcb9104a28e0.jpg',
+  '/pfp/2a9bd72cb276c78aa3a82ddaf8ce57bf.jpg',
+  '/pfp/32eb4049fc17b28b23bb11c7febfa298.jpg',
+  '/pfp/3e938db6467dd7773eec10a63a1c9ae9.jpg',
+  '/pfp/3f117195af8de79f76d09d3673dd9d4f.jpg',
+  '/pfp/412eb448fb72053b06b82b7f36a6447e.jpg',
+  '/pfp/5a795e60c839b2ade3a6257446750903.jpg',
+  '/pfp/6390b3720c610903502b8c9dfac7ccc7.jpg',
+  '/pfp/69f3d6ddd5757c57005bba9288221a47.jpg',
+  '/pfp/9a7b726ba395074e6bf7be18ce7ee587.jpg',
+  '/pfp/a1fbddda7de06260f6d543f3c7ff616f.jpg',
+  '/pfp/a270615c7ea87b9f40559dd720e66dbb.jpg',
+  '/pfp/a36a908c3e19517116a5d125dcc61e7d.jpg',
+  '/pfp/c6cb82181f943e7ec9ea932b8e3addf5.jpg',
+  '/pfp/eb9bd195d946e8535f3d73196e96c21e.jpg',
+];
+
+const getRandomPfps = (count = 5) => {
+  const shuffled = [...pfpImages].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
+};
 const HeroConfigurator = ({ overrideTitle }) => {
   const [teamSize, setTeamSize] = useState(4);
   const [hardbound, setHardbound] = useState(false);
@@ -13,6 +36,8 @@ const HeroConfigurator = ({ overrideTitle }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   
+  // Random PFPs for social proof - changes on each page load
+  const randomPfps = useMemo(() => getRandomPfps(5), []);
   // Payment Form State
   const [formData, setFormData] = useState({
     name: '',
@@ -167,16 +192,25 @@ const HeroConfigurator = ({ overrideTitle }) => {
             </div>
 
             <div className="flex items-center gap-4 text-sm font-medium text-gray-500 border-t border-gray-100 pt-6">
-              <div className="flex -space-x-2">
-                {[1,2,3,4].map(i => (
-                  <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-gray-200" />
+              <div className="flex -space-x-3">
+                {randomPfps.map((src, i) => (
+                  <img 
+                    key={i}
+                    src={src} 
+                    alt="Student" 
+                    className="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm"
+                    style={{ 
+                      animation: `popIn 0.4s ease forwards, pfpFloat ${3 + i * 0.5}s ease-in-out infinite`,
+                      animationDelay: `${i * 0.05}s, ${i * 0.2}s`
+                    }}
+                  />
                 ))}
               </div>
               <div className="flex items-center gap-1">
                 <div className="flex text-yellow-500">
                   {[1,2,3,4,5].map(i => <Star key={i} className="w-4 h-4 fill-current" />)}
                 </div>
-                <span className="text-gray-900 font-bold">4.9/5</span>
+                <span className="text-gray-900 font-bold">4.75/5</span>
                 <span>from 2000+ students</span>
               </div>
             </div>
