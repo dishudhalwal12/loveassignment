@@ -56,6 +56,7 @@ const Navbar = () => {
               <button 
                 onClick={() => setIsOpen(!isOpen)}
                 className="text-gray-700 hover:text-brand-700 focus:outline-none"
+                aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
               >
                 {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>

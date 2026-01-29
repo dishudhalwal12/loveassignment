@@ -226,8 +226,8 @@ const Testimonials = () => {
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="font-bold text-sm text-gray-900">{t.name}</h4>
-                    <p className="text-xs text-gray-400">{t.city}</p>
+                    <p className="font-bold text-sm text-gray-900">{t.name}</p>
+                    <p className="text-xs text-gray-500">{t.city}</p>
                   </div>
                   <BadgeCheck className="w-4 h-4 text-blue-500 flex-shrink-0" />
                 </div>

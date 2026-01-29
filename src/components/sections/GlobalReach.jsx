@@ -43,7 +43,7 @@ const GlobalReach = () => {
           <p className="text-center text-gray-500 font-medium mb-8">Trusted by students from top universities</p>
           <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
              {colleges.map((college, idx) => (
-               <span key={idx} className="text-lg md:text-xl font-bold text-gray-400 font-serif">
+               <span key={idx} className="text-lg md:text-xl font-bold text-gray-600 font-serif">
                  {college}
                </span>
              ))}
