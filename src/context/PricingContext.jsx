@@ -2,6 +2,11 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const PricingContext = createContext();
 
+// Finalized Psychological Pricing Constants
+const ORIGINAL_BASE_PRICE = 2498;
+const OFFER_BASE_PRICE = 1899;
+const HARDBOUND_PRICE = 599;
+
 export const PricingProvider = ({ children }) => {
   const [timeLeft, setTimeLeft] = useState(0);
   const [isExpired, setIsExpired] = useState(false);
@@ -40,10 +45,19 @@ export const PricingProvider = ({ children }) => {
     return () => clearInterval(timer);
   }, []);
 
-  const basePrice = isExpired ? 1265 : 1100;
+  // Timer logic: use offerBasePrice if timer active, else originalBasePrice
+  const basePrice = isExpired ? ORIGINAL_BASE_PRICE : OFFER_BASE_PRICE;
+  const originalBasePrice = ORIGINAL_BASE_PRICE;
+  const hardboundPrice = HARDBOUND_PRICE;
 
   return (
-    <PricingContext.Provider value={{ timeLeft, isExpired, basePrice }}>
+    <PricingContext.Provider value={{ 
+      timeLeft, 
+      isExpired, 
+      basePrice, 
+      originalBasePrice, 
+      hardboundPrice 
+    }}>
       {children}
     </PricingContext.Provider>
   );

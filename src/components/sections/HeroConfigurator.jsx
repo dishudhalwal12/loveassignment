@@ -21,14 +21,12 @@ const HeroConfigurator = ({ overrideTitle }) => {
   });
 
   const { openCheckout } = useRazorpay();
-  const { basePrice } = usePricing();
-
-  const hardboundPrice = 650;
+  const { basePrice, originalBasePrice, hardboundPrice, isExpired } = usePricing();
   const pptTotal = addPPT ? 100 : 0;
   const vivaTotal = addViva ? 100 : 0;
   const perPersonAddon = Math.ceil(100 / teamSize);
   
-  const pricePerPerson = Math.round(basePrice / teamSize);
+  const pricePerPerson = Math.floor(basePrice / teamSize);
   const totalProjectCost = basePrice;
   const finalTotal = totalProjectCost + (hardbound ? hardboundPrice : 0) + pptTotal + vivaTotal;
   const savingsPerPerson = basePrice - pricePerPerson;
@@ -234,8 +232,15 @@ const HeroConfigurator = ({ overrideTitle }) => {
                   </div>
                 </div>
                 
+                {/* Offer Pricing Label */}
+                {!isExpired ? (
+                  <p className="text-xs text-gray-500 text-center mt-2">
+                    Original Price <span className="line-through">₹{originalBasePrice}</span> — <span className="text-green-600 font-medium">15% Launch Offer Applied</span>
+                  </p>
+                ) : null}
+                
                 {savingsPerPerson > 0 && (
-                  <div className="flex items-center gap-1.5 text-green-700 bg-green-50 px-3 py-1.5 rounded-lg text-sm font-medium w-fit ml-auto">
+                  <div className="flex items-center gap-1.5 text-green-700 bg-green-50 px-3 py-1.5 rounded-lg text-sm font-medium w-fit ml-auto mt-2">
                     <Zap className="w-4 h-4" />
                     You save ₹{savingsPerPerson} by teaming up
                   </div>
@@ -306,6 +311,8 @@ const HeroConfigurator = ({ overrideTitle }) => {
         onClose={() => setIsModalOpen(false)}
         teamSize={teamSize}
         basePrice={basePrice}
+        originalBasePrice={originalBasePrice}
+        isOfferActive={!isExpired}
         hardbound={hardbound}
         hardboundPrice={hardboundPrice}
         addPPT={addPPT}
@@ -320,7 +327,7 @@ const HeroConfigurator = ({ overrideTitle }) => {
         setFormData={setFormData}
         onSubmit={handlePayment}
         isProcessing={isProcessing}
-        offerSavings={0}
+        offerSavings={!isExpired ? originalBasePrice - basePrice : 0}
       />
 
       {/* Mobile Sticky Action Bar */}

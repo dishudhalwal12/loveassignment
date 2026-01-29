@@ -6,6 +6,8 @@ const CartDrawer = ({
   onClose, 
   teamSize,
   basePrice,
+  originalBasePrice,
+  isOfferActive = false,
   hardbound,
   hardboundPrice,
   addPPT,
@@ -119,8 +121,18 @@ const CartDrawer = ({
               <div className="mb-4">
                 <div className="flex justify-between text-sm mb-2">
                   <span className="text-gray-600">Base Project ({teamSize} Members)</span>
-                  <span className="font-medium text-gray-900">₹{basePrice}</span>
+                  <div className="text-right">
+                    <span className="font-medium text-gray-900">₹{basePrice}</span>
+                    {isOfferActive && (
+                      <span className="ml-2 text-xs text-gray-400 line-through">₹{originalBasePrice}</span>
+                    )}
+                  </div>
                 </div>
+                {isOfferActive && (
+                  <p className="text-xs text-green-600 font-medium text-right mb-2">
+                    15% Launch Offer Applied
+                  </p>
+                )}
                 {hardbound && (
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Hardbound File</span>
