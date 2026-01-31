@@ -43,22 +43,16 @@ Submitted via website.`;
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   };
 
-  // Countdown and auto-redirect
+  // Auto-redirect after 1.5 seconds
   useEffect(() => {
     if (!orderData) return;
     
-    const timer = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          window.location.href = buildWhatsAppUrl();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+    const timer = setTimeout(() => {
+      setCountdown(0);
+      window.location.href = buildWhatsAppUrl();
+    }, 1500);
 
-    return () => clearInterval(timer);
+    return () => clearTimeout(timer);
   }, [orderData]);
 
   // Manual redirect
