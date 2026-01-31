@@ -16,17 +16,40 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firestore
 export const db = getFirestore(app);
 
+// Input sanitization helper - removes potential XSS vectors
+const sanitizeInput = (input) => {
+  if (typeof input !== 'string') return input;
+  return input
+    .replace(/[<>]/g, '') // Remove angle brackets
+    .replace(/javascript:/gi, '') // Remove javascript: protocol
+    .replace(/on\w+=/gi, '') // Remove event handlers
+    .trim()
+    .slice(0, 500); // Limit length
+};
+
+// Validate phone number format
+const isValidPhone = (phone) => {
+  const phoneRegex = /^\+?[0-9]{10,15}$/;
+  return phoneRegex.test(phone.replace(/\s/g, ''));
+};
+
 // Save order to Firestore
 export const saveOrder = async (orderData) => {
   try {
-    const docRef = await addDoc(collection(db, 'orders'), {
+    // Sanitize user inputs
+    const sanitizedData = {
       ...orderData,
+      fullName: sanitizeInput(orderData.fullName || ''),
+      whatsappNumber: sanitizeInput(orderData.whatsappNumber || ''),
+      projectTopic: sanitizeInput(orderData.projectTopic || ''),
       createdAt: serverTimestamp()
-    });
-    console.log("Order saved with ID: ", docRef.id);
+    };
+    
+    const docRef = await addDoc(collection(db, 'orders'), sanitizedData);
     return docRef.id;
   } catch (error) {
-    console.error("Error saving order: ", error);
+    // Log error without exposing sensitive data
+    console.error("Order save failed");
     throw error;
   }
 };
@@ -34,26 +57,35 @@ export const saveOrder = async (orderData) => {
 // Save WhatsApp checkout order to Firestore
 export const saveWhatsAppOrder = async (orderData) => {
   try {
-    const docRef = await addDoc(collection(db, 'orders_whatsapp'), {
-      name: orderData.name || '',
-      phone: orderData.phone || '',
-      email: orderData.email || '',
-      course: orderData.course || '',
-      projectType: orderData.projectType || '',
-      teamSize: orderData.teamSize || 1,
-      price: orderData.price || 0,
+    // Validate phone format
+    const phone = orderData.phone || '';
+    if (phone && !isValidPhone(phone)) {
+      throw new Error('Invalid phone format');
+    }
+    
+    // Sanitize and validate all inputs
+    const sanitizedData = {
+      name: sanitizeInput(orderData.name || ''),
+      phone: sanitizeInput(phone),
+      email: sanitizeInput(orderData.email || ''),
+      course: sanitizeInput(orderData.course || ''),
+      projectType: sanitizeInput(orderData.projectType || ''),
+      teamSize: Math.min(Math.max(parseInt(orderData.teamSize) || 1, 1), 4),
+      price: Math.max(parseFloat(orderData.price) || 0, 0),
       addons: {
-        hardbound: orderData.addons?.hardbound || false,
-        ppt: orderData.addons?.ppt || false,
-        viva: orderData.addons?.viva || false
+        hardbound: Boolean(orderData.addons?.hardbound),
+        ppt: Boolean(orderData.addons?.ppt),
+        viva: Boolean(orderData.addons?.viva)
       },
       source: 'website_whatsapp_checkout',
       timestamp: serverTimestamp()
-    });
-    console.log("WhatsApp order saved with ID: ", docRef.id);
+    };
+    
+    const docRef = await addDoc(collection(db, 'orders_whatsapp'), sanitizedData);
     return docRef.id;
   } catch (error) {
-    console.error("Error saving WhatsApp order: ", error);
+    // Log error without exposing sensitive data
+    console.error("WhatsApp order save failed");
     throw error;
   }
 };

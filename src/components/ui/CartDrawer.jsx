@@ -25,6 +25,8 @@ const CartDrawer = ({
   isProcessing,
   offerSavings = 0
 }) => {
+  // Calculate per-person price
+  const perPersonPrice = Math.floor(totalPayable / teamSize);
   // Lock body scroll when drawer is open
   useEffect(() => {
     if (isOpen) {
@@ -76,6 +78,18 @@ const CartDrawer = ({
         {/* Body - Scrollable */}
         <form onSubmit={onSubmit} className="flex-1 overflow-y-auto flex flex-col">
           <div className="px-6 py-5 space-y-5 flex-1">
+            
+            {/* Per-Person Price - PRIMARY DISPLAY */}
+            <div className="bg-green-50 rounded-xl p-4 text-center border border-green-100">
+              <p className="text-sm text-gray-600 font-medium mb-1">You Pay (per person)</p>
+              <p className="text-3xl font-bold text-green-600">₹{perPersonPrice}</p>
+              <details className="mt-2">
+                <summary className="text-xs text-gray-400 cursor-pointer hover:text-gray-500 transition-colors">
+                  Team Total (for {teamSize} member{teamSize > 1 ? 's' : ''})
+                </summary>
+                <p className="text-sm text-gray-500 mt-1">₹{totalPayable}</p>
+              </details>
+            </div>
             
             {/* Form Fields */}
             <div>
@@ -140,6 +154,9 @@ const CartDrawer = ({
                     <span className="font-medium text-gray-900">₹{hardboundPrice}</span>
                   </div>
                 )}
+                {hardbound && (
+                  <p className="text-xs text-gray-400 text-right">One-time optional add-on</p>
+                )}
               </div>
             </div>
 
@@ -200,8 +217,11 @@ const CartDrawer = ({
               {/* Total Summary */}
               <div>
                 <div className="flex justify-between items-center mb-1">
-                  <span className="text-sm text-gray-600">Total (GST included)</span>
-                  <span className="text-2xl font-bold text-gray-900">₹{totalPayable}</span>
+                  <div>
+                    <span className="text-sm font-medium text-gray-600">You pay (per person)</span>
+                    <p className="text-xs text-gray-400">All taxes included — no extra charges later</p>
+                  </div>
+                  <span className="text-2xl font-bold text-gray-900">₹{perPersonPrice}</span>
                 </div>
                 {offerSavings > 0 && (
                   <p className="text-xs text-green-600 font-medium text-right">
