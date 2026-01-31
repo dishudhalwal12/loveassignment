@@ -17,6 +17,7 @@ import FinalYearProjectBCA from './components/pages/FinalYearProjectBCA';
 import FinalYearProjectMCA from './components/pages/FinalYearProjectMCA';
 import FinalYearProjectBTech from './components/pages/FinalYearProjectBTech';
 import ProjectVivaPreparation from './components/pages/ProjectVivaPreparation';
+import OrderConfirmationPage from './components/pages/OrderConfirmationPage';
 
 function App() {
   return (
@@ -83,6 +84,9 @@ function App() {
                 <Route path="/final-year-project-mca" element={<FinalYearProjectMCA />} />
                 <Route path="/final-year-project-btech" element={<FinalYearProjectBTech />} />
                 <Route path="/project-viva-preparation" element={<ProjectVivaPreparation />} />
+                
+                {/* Order Confirmation (no layout chrome) */}
+                <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
                 
                 {/* Fallback */}
                 <Route path="*" element={<Home />} />

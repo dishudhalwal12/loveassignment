@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Check, Star, Users, ShieldCheck, Zap, Book, ChevronRight } from 'lucide-react';
 import CartDrawer from '../ui/CartDrawer';
 import { usePricing } from '../../context/PricingContext';
@@ -30,6 +31,7 @@ const getRandomPfps = (count = 5) => {
   return shuffled.slice(0, count);
 };
 const HeroConfigurator = ({ overrideTitle }) => {
+  const navigate = useNavigate();
   const [teamSize, setTeamSize] = useState(4);
   const [hardbound, setHardbound] = useState(false);
   const [addPPT, setAddPPT] = useState(false);
@@ -150,30 +152,25 @@ const HeroConfigurator = ({ overrideTitle }) => {
         }
       });
 
-      // 2. Construct WhatsApp message
-      const message = `Hi Love Assignment 👋
+      // 2. Prepare order data for confirmation page
+      const orderData = {
+        name: formData.name,
+        phone: `+91${formData.whatsapp}`,
+        projectType: formData.topic || '',
+        teamSize: teamSize,
+        price: finalTotal,
+        addons: {
+          hardbound: hardbound,
+          ppt: addPPT,
+          viva: addViva
+        }
+      };
 
-I want to reserve a project slot.
-
-Name: ${formData.name}
-Project Type: ${formData.topic || 'Not specified yet'}
-Team Size: ${teamSize}
-
-Selected Price: ₹${finalTotal}
-
-Add-ons:
-- Hardbound: ${hardbound ? 'Yes' : 'No'}
-- PPT: ${addPPT ? 'Yes' : 'No'}
-- Viva Q&A: ${addViva ? 'Yes' : 'No'}
-
-Submitted via website.`;
-
-      // 3. Close modal and redirect to WhatsApp
+      // 3. Close modal and navigate to confirmation page
       setIsModalOpen(false);
       setIsProcessing(false);
       
-      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-      window.location.href = whatsappUrl;
+      navigate('/order-confirmation', { state: { orderData } });
 
     } catch (error) {
       console.error('WhatsApp checkout error:', error);
