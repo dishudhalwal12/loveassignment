@@ -30,3 +30,30 @@ export const saveOrder = async (orderData) => {
     throw error;
   }
 };
+
+// Save WhatsApp checkout order to Firestore
+export const saveWhatsAppOrder = async (orderData) => {
+  try {
+    const docRef = await addDoc(collection(db, 'orders_whatsapp'), {
+      name: orderData.name || '',
+      phone: orderData.phone || '',
+      email: orderData.email || '',
+      course: orderData.course || '',
+      projectType: orderData.projectType || '',
+      teamSize: orderData.teamSize || 1,
+      price: orderData.price || 0,
+      addons: {
+        hardbound: orderData.addons?.hardbound || false,
+        ppt: orderData.addons?.ppt || false,
+        viva: orderData.addons?.viva || false
+      },
+      source: 'website_whatsapp_checkout',
+      timestamp: serverTimestamp()
+    });
+    console.log("WhatsApp order saved with ID: ", docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error("Error saving WhatsApp order: ", error);
+    throw error;
+  }
+};

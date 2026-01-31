@@ -3,7 +3,8 @@ import { Check, Star, Users, ShieldCheck, Zap, Book, ChevronRight } from 'lucide
 import CartDrawer from '../ui/CartDrawer';
 import { usePricing } from '../../context/PricingContext';
 import useRazorpay from '../../hooks/useRazorpay';
-import { saveOrder } from '../../lib/firebase';
+import { saveOrder, saveWhatsAppOrder } from '../../lib/firebase';
+import { PAYMENT_MODE, WHATSAPP_NUMBER } from '../../config/paymentConfig';
 
 const pfpImages = [
   '/pfp/0eef600c4aee2c986504050a1d988c7f.jpg',
@@ -120,7 +121,69 @@ const HeroConfigurator = ({ overrideTitle }) => {
     }
   };
 
-  const handlePayment = async (e) => {
+  // WhatsApp Checkout Handler
+  const handleWhatsAppCheckout = async (e) => {
+    e.preventDefault();
+
+    // Validate
+    if (!formData.name || !formData.whatsapp) {
+      alert('Please fill in all required fields');
+      return;
+    }
+
+    setIsProcessing(true);
+
+    try {
+      // 1. Save order to Firebase
+      await saveWhatsAppOrder({
+        name: formData.name,
+        phone: `+91${formData.whatsapp}`,
+        email: '',
+        course: '',
+        projectType: formData.topic || '',
+        teamSize: teamSize,
+        price: finalTotal,
+        addons: {
+          hardbound: hardbound,
+          ppt: addPPT,
+          viva: addViva
+        }
+      });
+
+      // 2. Construct WhatsApp message
+      const message = `Hi Love Assignment 👋
+
+I want to reserve a project slot.
+
+Name: ${formData.name}
+Project Type: ${formData.topic || 'Not specified yet'}
+Team Size: ${teamSize}
+
+Selected Price: ₹${finalTotal}
+
+Add-ons:
+- Hardbound: ${hardbound ? 'Yes' : 'No'}
+- PPT: ${addPPT ? 'Yes' : 'No'}
+- Viva Q&A: ${addViva ? 'Yes' : 'No'}
+
+Submitted via website.`;
+
+      // 3. Close modal and redirect to WhatsApp
+      setIsModalOpen(false);
+      setIsProcessing(false);
+      
+      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.location.href = whatsappUrl;
+
+    } catch (error) {
+      console.error('WhatsApp checkout error:', error);
+      setIsProcessing(false);
+      alert('Something went wrong. Please try again.');
+    }
+  };
+
+  // Razorpay Checkout Handler (for future use)
+  const handleRazorpayCheckout = async (e) => {
     e.preventDefault();
 
     // Validate
@@ -162,6 +225,9 @@ const HeroConfigurator = ({ overrideTitle }) => {
       setIsProcessing(false);
     }
   };
+
+  // Payment router based on mode
+  const handlePayment = PAYMENT_MODE === 'whatsapp' ? handleWhatsAppCheckout : handleRazorpayCheckout;
 
   return (
     <section className="relative pt-12 pb-20 overflow-hidden bg-white">

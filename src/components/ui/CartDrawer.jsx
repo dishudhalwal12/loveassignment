@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { X } from 'lucide-react';
+import { X, MessageCircle } from 'lucide-react';
+import { PAYMENT_MODE } from '../../config/paymentConfig';
 
 const CartDrawer = ({ 
   isOpen, 
@@ -213,13 +214,19 @@ const CartDrawer = ({
               <button 
                 type="submit"
                 disabled={isProcessing}
-                className="w-full btn-primary py-3.5 flex justify-center items-center font-semibold"
+                className="w-full btn-primary py-3.5 flex justify-center items-center gap-2 font-semibold"
               >
-                {isProcessing ? 'Processing...' : 'Proceed to Payment'}
+                {PAYMENT_MODE === 'whatsapp' && <MessageCircle className="w-5 h-5" />}
+                {isProcessing ? 'Processing...' : (
+                  PAYMENT_MODE === 'whatsapp' ? 'Reserve Slot on WhatsApp' : 'Proceed to Payment'
+                )}
               </button>
 
               <p className="text-xs text-gray-500 text-center">
-                Instant WhatsApp confirmation after payment
+                {PAYMENT_MODE === 'whatsapp' 
+                  ? 'Secure your project details first. Payment confirmation happens on WhatsApp.'
+                  : 'Instant WhatsApp confirmation after payment'
+                }
               </p>
             </div>
           </div>
