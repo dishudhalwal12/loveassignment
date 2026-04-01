@@ -2,10 +2,11 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const PricingContext = createContext();
 
-// Finalized Psychological Pricing Constants
-const ORIGINAL_BASE_PRICE = 2498;
-const OFFER_BASE_PRICE = 1899;
-const HARDBOUND_PRICE = 599;
+// Shared pricing constants
+export const LAUNCH_OFFER_PERCENT = 15;
+const ORIGINAL_BASE_PRICE = 2825;
+const OFFER_BASE_PRICE = 2399;
+const HARDBOUND_PRICE = 499;
 
 export const PricingProvider = ({ children }) => {
   const [timeLeft, setTimeLeft] = useState(0);

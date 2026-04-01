@@ -1,5 +1,5 @@
 import React from 'react';
-import { usePricing } from '../../context/PricingContext';
+import { LAUNCH_OFFER_PERCENT, usePricing } from '../../context/PricingContext';
 
 const TopAnnouncementBar = () => {
   const { timeLeft } = usePricing();
@@ -13,7 +13,7 @@ const TopAnnouncementBar = () => {
 
   return (
     <div className="bg-brand-700 text-white text-xs font-medium h-8 flex items-center justify-center w-full">
-      ⏳ 15% launch offer — Ends in {formatTime(timeLeft)}
+      ⏳ {LAUNCH_OFFER_PERCENT}% launch offer — Ends in {formatTime(timeLeft)}
     </div>
   );
 };

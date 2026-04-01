@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
 import { PAYMENT_MODE } from '../../config/paymentConfig';
+import { LAUNCH_OFFER_PERCENT } from '../../context/PricingContext';
 
 const CartDrawer = ({ 
   isOpen, 
@@ -145,7 +146,7 @@ const CartDrawer = ({
                 </div>
                 {isOfferActive && (
                   <p className="text-xs text-green-600 font-medium text-right mb-2">
-                    15% Launch Offer Applied
+                    {LAUNCH_OFFER_PERCENT}% Launch Offer Applied
                   </p>
                 )}
                 {hardbound && (

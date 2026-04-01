@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, Heart } from 'lucide-react';
+import { buildWhatsAppUrl, WHATSAPP_DISPLAY_NUMBER } from '../../config/paymentConfig';
 
 const Footer = () => {
   return (
@@ -56,8 +57,8 @@ const Footer = () => {
             <h3 className="font-semibold text-gray-900 mb-4">Contact</h3>
             <ul className="space-y-3 text-sm text-gray-600">
               <li>Need help? Chat with us</li>
-              <li><a href="https://wa.me/919256487182" className="text-green-600 font-bold hover:text-green-700 hover:underline flex items-center gap-1">
-                WhatsApp Support
+              <li><a href={buildWhatsAppUrl()} className="text-green-600 font-bold hover:text-green-700 hover:underline flex items-center gap-1">
+                WhatsApp Support ({WHATSAPP_DISPLAY_NUMBER})
               </a></li>
               <li className="pt-2">support@loveassignment.in</li>
             </ul>
@@ -78,4 +79,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

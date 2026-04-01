@@ -7,10 +7,10 @@ import {
   ChevronRight,
 } from "lucide-react";
 import CartDrawer from "../ui/CartDrawer";
-import { usePricing } from "../../context/PricingContext";
+import { LAUNCH_OFFER_PERCENT, usePricing } from "../../context/PricingContext";
 import useRazorpay from "../../hooks/useRazorpay";
 import { saveOrder, saveWhatsAppOrder } from "../../lib/firebase";
-import { PAYMENT_MODE, WHATSAPP_NUMBER } from "../../config/paymentConfig";
+import { PAYMENT_MODE, buildWhatsAppUrl } from "../../config/paymentConfig";
 
 const pfpImages = [
   "/pfp/0eef600c4aee2c986504050a1d988c7f.jpg",
@@ -142,18 +142,18 @@ const HeroConfigurator = ({ overrideTitle }) => {
 
       // 3. Show success and redirect
       alert(
-        "Payment successful! You will receive WhatsApp confirmation shortly.",
+        "Payment successful! WhatsApp is opening now. Please tap Send there to confirm your order.",
       );
 
       const message = `Hi Love Assignment, I have completed payment. My Payment ID is ${response.razorpay_payment_id}. Project: ${formData.topic || "Not specified"}`;
-      const whatsappUrl = `https://wa.me/919256487182?text=${encodeURIComponent(message)}`;
+      const whatsappUrl = buildWhatsAppUrl(message);
       window.location.href = whatsappUrl;
     } catch (error) {
       console.error("Post-payment error:", error);
       alert(
         "Payment successful but failed to record order. Please contact support on WhatsApp.",
       );
-      window.location.href = "https://wa.me/919256487182";
+      window.location.href = buildWhatsAppUrl();
     }
   };
 
@@ -462,7 +462,7 @@ const HeroConfigurator = ({ overrideTitle }) => {
                     </span>
                     {!isExpired && (
                       <span className="text-xs text-green-600 font-medium ml-1.5">
-                        15% off
+                        {LAUNCH_OFFER_PERCENT}% off
                       </span>
                     )}
                   </div>

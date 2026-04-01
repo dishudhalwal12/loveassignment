@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { WHATSAPP_NUMBER } from '../../config/paymentConfig';
 
 const SEO = ({ 
   title, 
@@ -26,12 +27,12 @@ const SEO = ({
     "email": "support@loveassignment.in",
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+91-9256487182",
+      "telephone": "+91-8619740693",
       "contactType": "customer support",
       "availableLanguage": ["en", "hi"]
     },
     "sameAs": [
-      "https://wa.me/919256487182"
+      `https://wa.me/${WHATSAPP_NUMBER}`
     ]
   };
 
